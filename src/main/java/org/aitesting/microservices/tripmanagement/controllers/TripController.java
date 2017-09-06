@@ -23,7 +23,7 @@ public class TripController {
     @GetMapping("trips")
     public @ResponseBody Iterable<Trip> getTrips(){
     	// 1="Active", 0="Not Active"
-        return  repository.findByActive(1);
+        return repository.findAll();
     }
 
     @GetMapping("trips/{id}")
@@ -40,14 +40,13 @@ public class TripController {
     @PutMapping("trips/update/{id}")
     public @ResponseBody Trip updateTrip(@PathVariable("id") Integer id, @RequestBody Trip updatedTrip){
         Trip trip = repository.findByIdtrip(id);
-        trip.setIdpassenger(updatedTrip.getIdpassenger() != null ? updatedTrip.getIdpassenger() : trip.getIdpassenger());
-        trip.setIddriver(updatedTrip.getIddriver() != null ? updatedTrip.getIddriver() : trip.getIddriver());
-        trip.setIdcar(updatedTrip.getIdcar() != null ? updatedTrip.getIdcar() : trip.getIdcar());
-        trip.setIdcityOrigin(updatedTrip.getIdcityOrigin() != null ? updatedTrip.getIdcityOrigin() : trip.getIdcityOrigin());
-        trip.setIdcityDestination(updatedTrip.getIdcityDestination() != null ? updatedTrip.getIdcityDestination() : trip.getIdcityDestination());
+        trip.setPassenger(updatedTrip.getPassenger() != null ? updatedTrip.getPassenger() : trip.getPassenger());
+        trip.setDriver(updatedTrip.getDriver() != null ? updatedTrip.getDriver() : trip.getDriver());
+        trip.setCar(updatedTrip.getCar() != null ? updatedTrip.getCar() : trip.getCar());
+        trip.setOriginCity(updatedTrip.getOriginCity() != null ? updatedTrip.getOriginCity() : trip.getOriginCity());
+        trip.setDestinationCity(updatedTrip.getDestinationCity() != null ? updatedTrip.getDestinationCity() : trip.getDestinationCity());
         trip.setOriginAddress(updatedTrip.getOriginAddress() != null ? updatedTrip.getOriginAddress() : trip.getOriginAddress());
         trip.setDestinationAddress(updatedTrip.getDestinationAddress() != null ? updatedTrip.getDestinationAddress() : trip.getDestinationAddress());
-        trip.setActive(updatedTrip.getActive() != null ? updatedTrip.getActive() : trip.getActive());
         trip.setLastLocationLat(updatedTrip.getLastLocationLat() != null ? updatedTrip.getLastLocationLat() : updatedTrip.getLastLocationLat());
         trip.setLastLocationLon(updatedTrip.getLastLocationLon() != null ? updatedTrip.getLastLocationLon() : updatedTrip.getLastLocationLon());
         trip.setOriginLocationLat(updatedTrip.getOriginLocationLat() != null ? updatedTrip.getOriginLocationLat() : updatedTrip.getOriginLocationLat());

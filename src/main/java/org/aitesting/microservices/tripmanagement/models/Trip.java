@@ -1,11 +1,15 @@
 package org.aitesting.microservices.tripmanagement.models;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,11 +20,21 @@ public class Trip {
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="idtrip")
 	private Integer idtrip;
-	private Integer idcityOrigin;
-	private Integer idcityDestination;
-	private Integer idpassenger;
-	private Integer iddriver;
-	private Integer idcar;
+    @ManyToOne
+    @JoinColumn(name = "idorigin_city")
+	private City originCity;
+    @ManyToOne
+    @JoinColumn(name = "iddestination_city")
+	private City destinationCity;
+    @ManyToOne
+    @JoinColumn(name = "idpassenger")
+	private Passenger passenger;
+    @ManyToOne
+    @JoinColumn(name = "iddriver")
+	private Driver driver;
+    @ManyToOne
+    @JoinColumn(name = "idcar")
+	private Car car;
 	private Double lastLocationLat;
 	private Double lastLocationLon;
 	private Double originLocationLat;
@@ -28,8 +42,12 @@ public class Trip {
 	private Double destinationLocationLat;
 	private Double destinationLocationLon;
 	private String originAddress;
+	private String originZipcode;
 	private String destinationAddress;
-	private Integer active; // 1 = active, 0 = inactive
+	private String destinationZipcode;
+
+    @OneToMany
+    private Set<HasTripState> hasTripState;
 	
 	public Trip() {
 	}
@@ -42,44 +60,44 @@ public class Trip {
 		this.idtrip = idtrip;
 	}
 
-	public Integer getIdcityOrigin() {
-		return idcityOrigin;
+	public City getOriginCity() {
+		return originCity;
 	}
 
-	public void setIdcityOrigin(Integer idcityOrigin) {
-		this.idcityOrigin = idcityOrigin;
+	public void setOriginCity(City originCity) {
+		this.originCity = originCity;
 	}
 
-	public Integer getIdcityDestination() {
-		return idcityDestination;
+	public City getDestinationCity() {
+		return destinationCity;
 	}
 
-	public void setIdcityDestination(Integer idcityDestination) {
-		this.idcityDestination = idcityDestination;
+	public void setDestinationCity(City destinationCity) {
+		this.destinationCity = destinationCity;
 	}
 
-	public Integer getIdpassenger() {
-		return idpassenger;
+	public Passenger getPassenger() {
+		return passenger;
 	}
 
-	public void setIdpassenger(Integer idpassenger) {
-		this.idpassenger = idpassenger;
+	public void setPassenger(Passenger passenger) {
+		this.passenger = passenger;
 	}
 
-	public Integer getIddriver() {
-		return iddriver;
+	public Driver getDriver() {
+		return driver;
 	}
 
-	public void setIddriver(Integer iddriver) {
-		this.iddriver = iddriver;
+	public void setDriver(Driver driver) {
+		this.driver = driver;
 	}
 
-	public Integer getIdcar() {
-		return idcar;
+	public Car getCar() {
+		return car;
 	}
 
-	public void setIdcar(Integer idcar) {
-		this.idcar = idcar;
+	public void setCar(Car car) {
+		this.car = car;
 	}
 
 	public Double getLastLocationLat() {
@@ -138,6 +156,14 @@ public class Trip {
 		this.originAddress = originAddress;
 	}
 
+	public String getOriginZipcode() {
+		return originZipcode;
+	}
+
+	public void setOriginZipcode(String originZipcode) {
+		this.originZipcode = originZipcode;
+	}
+
 	public String getDestinationAddress() {
 		return destinationAddress;
 	}
@@ -146,12 +172,19 @@ public class Trip {
 		this.destinationAddress = destinationAddress;
 	}
 
-	public Integer getActive() {
-		return active;
+	public String getDestinationZipcode() {
+		return destinationZipcode;
 	}
 
-	public void setActive(Integer active) {
-		this.active = active;
+	public void setDestinationZipcode(String destinationZipcode) {
+		this.destinationZipcode = destinationZipcode;
 	}
+
+	@Override
+	public String toString() {
+		return driver.toString() + " - " + passenger.toString() + " - " + car.toString();
+	}
+	
+	
 	
 }

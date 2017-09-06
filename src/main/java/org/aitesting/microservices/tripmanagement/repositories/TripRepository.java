@@ -7,6 +7,4 @@ public interface TripRepository extends CrudRepository<Trip, String> {
 	
     Trip findByIdtrip(Integer id);
     
-    public Iterable<Trip> findByActive(Integer active);
-    
 }

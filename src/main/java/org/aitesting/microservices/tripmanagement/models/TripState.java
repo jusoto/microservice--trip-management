@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="trip_state")
 public class TripState {
@@ -22,7 +24,7 @@ public class TripState {
 	private String name;
 	private String description;
 
-    @OneToMany
+    @OneToMany(mappedBy = "tripState")
     private Set<HasTripState> hasTripStates;
 	
 	public TripState() {
@@ -53,6 +55,7 @@ public class TripState {
 		this.description = description;
 	}
 
+	@JsonIgnore
 	public Set<HasTripState> getHasTripStates() {
 		return hasTripStates;
 	}

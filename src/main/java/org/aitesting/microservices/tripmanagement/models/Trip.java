@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="trip")
@@ -20,21 +23,15 @@ public class Trip {
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="idtrip")
 	private Integer idtrip;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idorigin_city")
 	private City originCity;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iddestination_city")
 	private City destinationCity;
-    @ManyToOne
-    @JoinColumn(name = "idpassenger")
-	private Passenger passenger;
-    @ManyToOne
-    @JoinColumn(name = "iddriver")
-	private Driver driver;
-    @ManyToOne
-    @JoinColumn(name = "idcar")
-	private Car car;
+	private Integer idpassenger;
+	private Integer iddriver;
+	private Integer idcar;
 	private Double lastLocationLat;
 	private Double lastLocationLon;
 	private Double originLocationLat;
@@ -45,8 +42,9 @@ public class Trip {
 	private String originZipcode;
 	private String destinationAddress;
 	private String destinationZipcode;
+	private String directions;
 
-    @OneToMany
+    @OneToMany(mappedBy = "trip")
     private Set<HasTripState> hasTripState;
 	
 	public Trip() {
@@ -76,28 +74,28 @@ public class Trip {
 		this.destinationCity = destinationCity;
 	}
 
-	public Passenger getPassenger() {
-		return passenger;
+	public Integer getIdpassenger() {
+		return idpassenger;
 	}
 
-	public void setPassenger(Passenger passenger) {
-		this.passenger = passenger;
+	public void setIdpassenger(Integer idpassenger) {
+		this.idpassenger = idpassenger;
 	}
 
-	public Driver getDriver() {
-		return driver;
+	public Integer getIddriver() {
+		return iddriver;
 	}
 
-	public void setDriver(Driver driver) {
-		this.driver = driver;
+	public void setIddriver(Integer iddriver) {
+		this.iddriver = iddriver;
 	}
 
-	public Car getCar() {
-		return car;
+	public Integer getIdcar() {
+		return idcar;
 	}
 
-	public void setCar(Car car) {
-		this.car = car;
+	public void setIdcar(Integer idcar) {
+		this.idcar = idcar;
 	}
 
 	public Double getLastLocationLat() {
@@ -180,9 +178,22 @@ public class Trip {
 		this.destinationZipcode = destinationZipcode;
 	}
 
+	public String getDirections() {
+		return directions;
+	}
+
+	public void setDirections(String directions) {
+		this.directions = directions;
+	}
+
+	@JsonIgnore
+	public Set<HasTripState> getHasTripState() {
+		return hasTripState;
+	}
+
 	@Override
 	public String toString() {
-		return driver.toString() + " - " + passenger.toString() + " - " + car.toString();
+		return idpassenger + " - " + destinationAddress;
 	}
 	
 	

@@ -4,32 +4,30 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="state")
 public class State {
 	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="idstate")
 	private Integer idstate;
-    @ManyToOne
-    @JoinColumn(name = "idcountry")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idcountry", referencedColumnName = "idcountry")
 	private Country country;
 	private String name;
+	private String abbreviation;
 
-    @OneToMany
+    @OneToMany(mappedBy = "state")
     private Set<City> cities;
-
-    @OneToMany
-    private Set<Car> cars;
 	
 	public State() {
 		
@@ -59,12 +57,17 @@ public class State {
 		this.name = name;
 	}
 
+	@JsonIgnore
 	public Set<City> getCities() {
 		return cities;
 	}
 
-	public Set<Car> getCars() {
-		return cars;
+	public String getAbbreviation() {
+		return abbreviation;
+	}
+
+	public void setAbbreviation(String abbreviation) {
+		this.abbreviation = abbreviation;
 	}
 
 	@Override

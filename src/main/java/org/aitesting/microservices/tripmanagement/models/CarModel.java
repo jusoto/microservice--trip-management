@@ -1,16 +1,8 @@
 package org.aitesting.microservices.tripmanagement.models;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,16 +10,10 @@ import javax.persistence.Table;
 public class CarModel {
 	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="idcar_model")
 	private Integer idcarModel;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idcar_making")
-	private CarMaking making;
+	private Integer idcarMaking;
 	private String name;
-
-    @OneToMany
-    private Set<Car> cars;
 	
 	public CarModel() {
 		
@@ -41,12 +27,12 @@ public class CarModel {
 		this.idcarModel = idcarModel;
 	}
 
-	public CarMaking getMaking() {
-		return making;
+	public Integer getIdcarMaking() {
+		return idcarMaking;
 	}
 
-	public void setMaking(CarMaking making) {
-		this.making = making;
+	public void setIdcarMaking(Integer idcarMaking) {
+		this.idcarMaking = idcarMaking;
 	}
 
 	public String getName() {
@@ -57,9 +43,25 @@ public class CarModel {
 		this.name = name;
 	}
 
-	public Set<Car> getCars() {
-		return cars;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idcarModel != null ? idcarModel.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof CarModel)) {
+            return false;
+        }
+        CarModel other = (CarModel) object;
+        if ((this.idcarModel == null && other.idcarModel != null) || (this.idcarModel != null && !this.idcarModel.equals(other.idcarModel))) {
+            return false;
+        }
+        return true;
+    }
 
 	@Override
 	public String toString() {

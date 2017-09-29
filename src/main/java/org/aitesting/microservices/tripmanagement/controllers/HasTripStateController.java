@@ -12,29 +12,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("api")
+@RequestMapping("api/has_trip_state")
 public class HasTripStateController {
 	
     @Autowired
     private HasTripStateRepository repository;
 
-    @GetMapping("has_trip_state")
+    @GetMapping("/")
     public @ResponseBody Iterable<HasTripState> getHasTripStates(){
     	// 1="Active", 0="Not Active"
         return  repository.findAll();
     }
 
-    @GetMapping("has_trip_state/{id}")
+    @GetMapping("/{id}")
     public @ResponseBody HasTripState getHasTripState(@PathVariable("id") Integer id){
         return repository.findByTrip(id);
     }
 
-    @GetMapping("has_trip_state/last/{id}")
+    @GetMapping("last/{id}")
     public @ResponseBody HasTripState getLastHasTripState(@PathVariable("id") Integer id){
         return repository.findLastByTrip(id);
     }
 
-    @PostMapping("has_trip_state/add")
+    @PostMapping("add")
     public @ResponseBody HasTripState addHasTripState(@RequestBody HasTripState obj){
         repository.save(obj);
         return obj;

@@ -1,14 +1,10 @@
 package org.aitesting.microservices.tripmanagement.models;
 
-import java.util.Set;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,33 +12,25 @@ import javax.persistence.Table;
 public class Car {
 	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer idcar;
-    @ManyToOne
-    @JoinColumn(name = "idstate")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idstate", referencedColumnName = "idstate")
 	private State state;
-    @ManyToOne
-    @JoinColumn(name = "iddriver")
-	private Driver driver;
-    @ManyToOne
-    @JoinColumn(name = "idcar_model")
-	private CarModel carModel;
+	private Integer iddriver;
+	private Integer idcarModel;
 	private String plate;
 	private String imageUri;
 	private Integer year;
-
-    @OneToMany
-    private Set<Trip> trips;
 	
 	public Car() {
 		
 	}
 
-	public Car(State state, Driver driver, CarModel carModel, String plate, String imageUri, Integer year) {
+	public Car(State state, Integer iddriver, Integer idcarModel, String plate, String imageUri, Integer year) {
 		super();
 		this.state = state;
-		this.driver = driver;
-		this.carModel = carModel;
+		this.iddriver = iddriver;
+		this.idcarModel = idcarModel;
 		this.plate = plate;
 		this.imageUri = imageUri;
 		this.year = year;
@@ -65,20 +53,20 @@ public class Car {
 		this.state = state;
 	}
 
-	public Driver getDriver() {
-		return driver;
+	public Integer getIddriver() {
+		return iddriver;
 	}
 
-	public void setDriver(Driver driver) {
-		this.driver = driver;
+	public void setIddriver(Integer iddriver) {
+		this.iddriver = iddriver;
 	}
 
-	public CarModel getCarModel() {
-		return carModel;
+	public Integer getIdcarModel() {
+		return idcarModel;
 	}
 
-	public void setCarModel(CarModel carModel) {
-		this.carModel = carModel;
+	public void setIdcarModel(Integer idcarModel) {
+		this.idcarModel = idcarModel;
 	}
 
 	public String getPlate() {
@@ -105,9 +93,25 @@ public class Car {
 		this.year = year;
 	}
 
-	public Set<Trip> getTrips() {
-		return trips;
-	}
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idcar != null ? idcar.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Car)) {
+            return false;
+        }
+        Car other = (Car) object;
+        if ((this.idcar == null && other.idcar != null) || (this.idcar != null && !this.idcar.equals(other.idcar))) {
+            return false;
+        }
+        return true;
+    }
 
 	@Override
 	public String toString() {

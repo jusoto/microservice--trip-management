@@ -1,7 +1,5 @@
 package org.aitesting.microservices.tripmanagement.models;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -33,9 +30,6 @@ public class Passenger {
 	private String address;
 	private String phone;
 	private Integer active; // 1 = active, 0 = inactive
-
-    @OneToMany
-    private Set<Trip> trips;
 	
 	public Passenger() {
 		

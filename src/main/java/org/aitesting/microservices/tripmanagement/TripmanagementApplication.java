@@ -16,12 +16,11 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableRabbit
-@EnableScheduling
-public class TripManagementApplication implements RabbitListenerConfigurer {
+//@EnableRedisHttpSession
+public class TripManagementApplication /*extends WebSecurityConfigurerAdapter*/ implements RabbitListenerConfigurer {
 
 	public static final String EXCHANGE_NAME = "appExchange";
 	public static final String QUEUE_GENERIC_NAME = "genericQueue";
@@ -123,4 +122,10 @@ public class TripManagementApplication implements RabbitListenerConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(TripManagementApplication.class, args);
 	}
+
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//	    http.httpBasic().disable();
+//	    http.authorizeRequests().anyRequest().authenticated();
+//	}
 }

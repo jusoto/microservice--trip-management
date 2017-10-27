@@ -52,26 +52,28 @@ public class TripController {
 
     @PostMapping("add")
     public @ResponseBody Trip addTrip(@RequestBody Trip trip) {
-		GeoApiContext context = new GeoApiContext.Builder(new GaeRequestHandler.Builder())
-				.apiKey("AIzaSyB4uaoaPtxAHijM9oFBKrgxAcQBeqXSlKE").build();
+		GeoApiContext context = new GeoApiContext.Builder()
+				.apiKey("AIzaSyA-A_VJjmiAKM-xwZpv7RdxDKkV5hzMh4Y").build();
 		
     	// TODO: Get Address from Origin Lat Lon
-		String originAddress = "2250 N Commerce Pkwy, Weston, FL 33326 ";
+		String originAddress = "";
 		try {
 			originAddress = Util.getReverseGeocoding(context, trip.getOriginLocationLat(), trip.getOriginLocationLon());
 		} catch (ApiException | InterruptedException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			originAddress = "2250 N Commerce Pkwy, Weston, FL 33326 ";
 		}
 		trip.setOriginAddress(originAddress);
     	
     	// TODO: Get Lat Lon from Destination Address
-		LatLng latlng = new LatLng(25.756606, -80.373957);
+		LatLng latlng;
 		try {
 			latlng = Util.getGeocoding(context, trip.getDestinationAddress());
 		} catch (ApiException | InterruptedException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			latlng = new LatLng(25.756606, -80.373957);
 		}
     	trip.setDestinationLocationLat(latlng.lat);
     	trip.setDestinationLocationLon(latlng.lng);

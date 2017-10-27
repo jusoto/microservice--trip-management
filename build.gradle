@@ -46,19 +46,24 @@ configurations {
 	providedRuntime
 }
 
-
 ext {
 	springCloudVersion = 'Dalston.SR1'
 }
 
-
 dependencies {
 
+	//compile 'org.springframework.cloud:spring-cloud-starter-eureka'
 	compile 'org.springframework.boot:spring-boot-starter-web'
 	compile 'org.springframework.boot:spring-boot-starter-amqp'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'org.springframework.boot:spring-boot-starter-data-rest'
     compile 'org.springframework.boot:spring-boot-starter-logging'
+    
+    // Security between Microservices through API
+	compile 'org.springframework.boot:spring-boot-starter-tomcat'
+	//compile 'org.springframework.boot:spring-boot-starter-security'
+	//compile 'org.springframework.boot:spring-boot-starter-data-redis'
+	//compile 'org.springframework.session:spring-session'
 
     // Use MySQL Connector-J
     compile 'mysql:mysql-connector-java'
@@ -73,6 +78,8 @@ dependencies {
     compile 'com.google.guava:guava:23.0-android'
     compile 'com.fasterxml.jackson.core:jackson-databind'
     compile 'org.json:json:20090211'
+    compile 'redis.clients:jedis'
+    compile 'org.apache.commons:commons-pool2'
     
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

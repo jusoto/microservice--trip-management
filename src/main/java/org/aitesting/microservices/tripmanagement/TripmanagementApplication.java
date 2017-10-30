@@ -20,7 +20,7 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 @SpringBootApplication
 @EnableRabbit
 //@EnableRedisHttpSession
-public class TripManagementApplication /*extends WebSecurityConfigurerAdapter*/ implements RabbitListenerConfigurer {
+public class TripmanagementApplication /*extends WebSecurityConfigurerAdapter*/ implements RabbitListenerConfigurer {
 
 	public static final String EXCHANGE_NAME = "appExchange";
 	public static final String QUEUE_GENERIC_NAME = "genericQueue";
@@ -120,7 +120,7 @@ public class TripManagementApplication /*extends WebSecurityConfigurerAdapter*/ 
     }
 
 	public static void main(String[] args) {
-		SpringApplication.run(TripManagementApplication.class, args);
+		SpringApplication.run(TripmanagementApplication.class, args);
 	}
 
 //	@Override

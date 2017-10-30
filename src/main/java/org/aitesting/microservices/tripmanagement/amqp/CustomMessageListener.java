@@ -1,7 +1,7 @@
 package org.aitesting.microservices.tripmanagement.amqp;
 
 import org.aitesting.microservices.passengermanagement.amqp.CustomMessageTrip;
-import org.aitesting.microservices.tripmanagement.TripManagementApplication;
+import org.aitesting.microservices.tripmanagement.TripmanagementApplication;
 import org.aitesting.microservices.tripmanagement.models.Trip;
 import org.aitesting.microservices.tripmanagement.repositories.TripRepository;
 import org.slf4j.Logger;
@@ -23,7 +23,7 @@ public class CustomMessageListener {
 //        log.info("Received message as generic: {}", message.toString());
 //    }
 
-    @RabbitListener(queues = TripManagementApplication.TRIP_MANAGEMENT_QUEUE)
+    @RabbitListener(queues = TripmanagementApplication.TRIP_MANAGEMENT_QUEUE)
     public void receiveMessage(final CustomMessageTrip customMessage) {
     	Trip obj = new Trip();
     	obj.setIdpassenger(customMessage.getIdpassenger());

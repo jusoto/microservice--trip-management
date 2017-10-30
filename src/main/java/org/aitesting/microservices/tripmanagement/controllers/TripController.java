@@ -2,7 +2,7 @@ package org.aitesting.microservices.tripmanagement.controllers;
 
 import java.io.IOException;
 
-import org.aitesting.microservices.tripmanagement.TripManagementApplication;
+import org.aitesting.microservices.tripmanagement.TripmanagementApplication;
 import org.aitesting.microservices.tripmanagement.amqp.CustomMessageDriver;
 import org.aitesting.microservices.tripmanagement.models.Trip;
 import org.aitesting.microservices.tripmanagement.repositories.TripRepository;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.maps.GaeRequestHandler;
 import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DirectionsResult;
@@ -97,7 +96,7 @@ public class TripController {
     }
 
     public void sendMessageDriver(final CustomMessageDriver customMessage) {
-        rabbitTemplate.convertAndSend(TripManagementApplication.EXCHANGE_NAME, TripManagementApplication.TRIP_ROUTING_KEY, customMessage);
+        rabbitTemplate.convertAndSend(TripmanagementApplication.EXCHANGE_NAME, TripmanagementApplication.TRIP_ROUTING_KEY, customMessage);
     }
 
     @PutMapping("update/{id}")

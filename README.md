@@ -1,4 +1,5 @@
 # Trip Management Micro Service
+![alt text](https://travis-ci.org/AITestingOrg/tripmanagement.svg?branch=master "Build Status")
 
 This Micro Service takes care of the information of the trips created between the passengers and drivers.
 
